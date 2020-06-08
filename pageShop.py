@@ -14,6 +14,6 @@ class PageShop:
         self.driver.find_element_by_xpath(self.sum_button).click()
 
     def return_quantity(self):
-        return self.driver.find_element_by_id(self.quantity_wanted).text
+        return self.driver.find_element_by_id(self.quantity_wanted).get_attribute('value')
 
         
