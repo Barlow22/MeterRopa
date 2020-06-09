@@ -22,9 +22,7 @@ class SearchCases(unittest.TestCase):
         self.items_page.pick_color()
         time.sleep(2)
         self.shop_page.quantity('25')
-        self.shop_page.sum_quantity()
-        self.shop_page.sum_quantity()
-        self.shop_page.sum_quantity()
+        self.shop_page.sum_quantity(3)
         time.sleep(2)
         self.assertEqual(self.shop_page.return_quantity() , '28')
 
