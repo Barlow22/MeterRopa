@@ -12,8 +12,10 @@ class PageIndex:
         
 
     def search_items(self, item):
-        search_box = WebDriverWait(self.driver, 5).until(EC.presence_of_element_located(self.query_top))
-        self.driver.find_element(*self.query_top).send_keys(item)
-        self.driver.find_element(*self.submit_search).click()
-    
+        try:
+            search_box = WebDriverWait(self.driver, 5).until(EC.presence_of_element_located(self.query_top))
+            self.driver.find_element(*self.query_top).send_keys(item)
+            self.driver.find_element(*self.submit_search).click()
+        except:
+            print('No se encuentra el elemento')
 
