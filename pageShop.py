@@ -1,4 +1,5 @@
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import Select
 
 
 class PageShop:
@@ -8,7 +9,13 @@ class PageShop:
         self.driver = my_driver
         self.quantity_wanted = (By.ID, 'quantity_wanted')
         self.sum_button = (By.XPATH, '//*[@id="quantity_wanted_p"]/a[2]/span/i')
-        
+        self.order = (By.ID, 'group_1')
+        self.cart_button = (By.ID, 'add_to_cart')
+        self.cart_quantity = (By.ID, 'layer_cart_product_quantity')
+        self.cart_price = (By.ID, 'layer_cart_product_price')
+        self.cart_product_name = (By.ID, 'layer_cart_product_title' )
+        self.cart_ship_price = (By.CLASS_NAME, 'ajax_cart_shipping_cost')
+        self.cart_total_price = (By.CLASS_NAME, 'ajax_block_cart_total')
 
     def quantity(self, cantidad):
         self.driver.find_element(*self.quantity_wanted).clear()
@@ -20,5 +27,30 @@ class PageShop:
 
     def return_quantity(self):
         return self.driver.find_element(*self.quantity_wanted).get_attribute('value')
+
+    def order_by_text(self, text):
+        order = Select(self.driver.find_element(*self.order))
+        order.select_by_visible_text(text)
+
+    def add_to_cart(self):
+        self.driver.find_element(*self.cart_button).click()
+
+    def return_cart_quantity(self):
+        return self.driver.find_element(*self.cart_quantity).text
+    
+    def return_cart_price(self):
+        return self.driver.find_element(*self.cart_price).text
+
+    def return_cart_ship_price(self):
+        return self.driver.find_element(*self.cart_ship_price).text
+
+    def return_cart_total_price(self):
+        return self.driver.find_element(*self.cart_total_price).text
+
+    def return_cart_product_name(self):
+        return self.driver.find_element(*self.cart_product_name).text
+    
+        
+
 
     

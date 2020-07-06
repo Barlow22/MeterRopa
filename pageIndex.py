@@ -9,7 +9,7 @@ class PageIndex:
         self.driver = my_driver
         self.query_top = (By.ID, 'search_query_top' )
         self.submit_search = (By.NAME, 'submit_search')
-        
+        self.dresses_button = (By.LINK_TEXT, 'DRESSES')
 
     def search_items(self, item):
         try:
@@ -19,3 +19,7 @@ class PageIndex:
         except:
             print('No se encuentra el elemento')
 
+    def select_banner_tittle(self, tittle):
+        banner_tittle = (By.LINK_TEXT, tittle)
+        self.driver.find_element(*banner_tittle).click()
+        

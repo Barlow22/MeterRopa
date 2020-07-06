@@ -17,6 +17,10 @@ class PageItems:
     def select_by_value(self, value):
         order_value = Select(self.driver.find_element(*self.order))
         order_value.select_by_value(value)
+
+    def select_item(self, item):
+        item_type = (By.LINK_TEXT, item)
+        self.driver.find_element(*item_type).click()
     
     def select_by_index(self, number):
         order_value = Select(self.driver.find_element(*self.order))
