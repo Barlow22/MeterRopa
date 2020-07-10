@@ -13,9 +13,9 @@ class PageShop:
         self.cart_button = (By.ID, 'add_to_cart')
         self.cart_quantity = (By.ID, 'layer_cart_product_quantity')
         self.cart_price = (By.ID, 'layer_cart_product_price')
-        self.cart_product_name = (By.ID, 'layer_cart_product_title' )
-        self.cart_ship_price = (By.CLASS_NAME, 'ajax_cart_shipping_cost')
-        self.cart_total_price = (By.CLASS_NAME, 'ajax_block_cart_total')
+        self.cart_product_name = (By.XPATH, '//*[@id="layer_cart_product_title"]' )
+        self.cart_ship_price = (By.XPATH, '//*[@id="layer_cart"]/div[1]/div[2]/div[1]/span')
+        self.cart_total_price = (By.XPATH, '//*[@id="layer_cart"]/div[1]/div[2]/div[3]/span')
 
     def quantity(self, cantidad):
         self.driver.find_element(*self.quantity_wanted).clear()
@@ -36,7 +36,8 @@ class PageShop:
         self.driver.find_element(*self.cart_button).click()
 
     def return_cart_quantity(self):
-        return self.driver.find_element(*self.cart_quantity).text
+        texto = self.driver.find_element(*self.cart_quantity).text
+        return texto
     
     def return_cart_price(self):
         return self.driver.find_element(*self.cart_price).text
