@@ -43,7 +43,8 @@ class SearchCases(unittest.TestCase):
         self.items_page.select_by_text('Product Name: A to Z')
         self.items_page.select_by_value('reference:asc')
         self.items_page.select_by_index(4)
-        
+
+    @unittest.skip('No se necesita ahora')    
     def test_casual_dresses(self):
         # no estoy seguro de que esto sea una buena practica, pero quiera algo un poco mas abstracto. Quizas lo
         # ideal es para cada seleccion que hagamos un metodo distinto, pero me la jugue con esto!
@@ -52,13 +53,11 @@ class SearchCases(unittest.TestCase):
         self.items_page.select_item('Printed Dress')
         self.shop_page.quantity('5')
         self.shop_page.order_by_text('L')
-        self.shop_page.add_to_cart()
-        
-        
+        self.shop_page.add_to_cart()       
         #esto seguramente este mal, pero queria probar todos los casos sin que me termine la ejecucion y ver cuales fallan
         #y cuales no. No encontre si hay una forma de poner todo en un solo bloque try.
         try:
-            self.assertEqual(self.shop_page.return_cart_quantity(), '5')
+            self.assertTrue('5' in self.shop_page.return_cart_quantity())
         except:
             print('La cantidad del carrito es distinta')
         try:
@@ -66,7 +65,7 @@ class SearchCases(unittest.TestCase):
         except:
             print('El precio del carrito es incorrecto')
         try:
-            self.assertIs(self.shop_page.return_cart_ship_price(), '$2.00')
+            self.assertEqual(self.shop_page.return_cart_ship_price(), '$2.00')
         except:
             print('El precio del envio es incorrecto')
         try:
@@ -92,7 +91,18 @@ class SearchCases(unittest.TestCase):
             print()
             print(self.shop_page.return_cart_product_name())
             print(type(self.shop_page.return_cart_product_name()))
-        time.sleep(2)
+        
+    #@unittest.skip('no se necesita')
+    def test_second_dress(self):
+        self.index_page.select_banner_tittle('DRESSES')
+        self.category_page.list_view()
+    @unittest.skip('No esta terminado')
+    def test_invalid_mail(self):
+        pass
+    
+    @unittest.skip('No esta terminado')
+    def test_authentication_invalid(self):
+        pass
 
     def tearDown(self):
         self.driver.close()

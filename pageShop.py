@@ -1,6 +1,7 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
-
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 class PageShop:
 
@@ -13,8 +14,8 @@ class PageShop:
         self.cart_button = (By.ID, 'add_to_cart')
         self.cart_quantity = (By.ID, 'layer_cart_product_quantity')
         self.cart_price = (By.ID, 'layer_cart_product_price')
-        self.cart_product_name = (By.XPATH, '//*[@id="layer_cart_product_title"]' )
-        self.cart_ship_price = (By.XPATH, '//*[@id="layer_cart"]/div[1]/div[2]/div[1]/span')
+        self.cart_product_name = (By.ID, 'layer_cart_product_title' )
+        self.cart_ship_price = (By.XPATH, '/html/body/div/div[1]/header/div[3]/div/div/div[4]/div[1]/div[2]/div[2]/span')
         self.cart_total_price = (By.XPATH, '//*[@id="layer_cart"]/div[1]/div[2]/div[3]/span')
 
     def quantity(self, cantidad):
@@ -36,8 +37,13 @@ class PageShop:
         self.driver.find_element(*self.cart_button).click()
 
     def return_cart_quantity(self):
-        texto = self.driver.find_element(*self.cart_quantity).text
-        return texto
+        try:
+            element = WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located(self.cart_quantity))
+            return element.text
+        except:
+            print('Elemento no encontrado')
+        #return self.driver.find_element(*self.cart_quantity).text
+
     
     def return_cart_price(self):
         return self.driver.find_element(*self.cart_price).text
